@@ -12,5 +12,6 @@ for i in range(n):
     if arr[i][0] == abc:
         cnt+=1
 
-avg = round(len_all/n)
-print(f'{cnt} {avg:.2f} ')
+avg = round(len_all/cnt)
+#avg= (len_all/n)
+print(f'{cnt} {avg:.2f}')
