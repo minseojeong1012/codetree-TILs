@@ -13,6 +13,6 @@ for i in range(n):
         cnt+=1
         len_all+=len(arr[i])
 
-avg = round(len_all/cnt)
+avg = round(len_all/cnt, 2)
 #avg= (len_all/n)
 print(f'{cnt} {avg:.2f}')
