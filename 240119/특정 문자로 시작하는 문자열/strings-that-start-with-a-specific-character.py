@@ -8,9 +8,10 @@ for _ in range(n):
 abc= input()
 
 for i in range(n):
-    len_all+=len(arr[i])
+    
     if arr[i][0] == abc:
         cnt+=1
+        len_all+=len(arr[i])
 
 avg = round(len_all/cnt)
 #avg= (len_all/n)
