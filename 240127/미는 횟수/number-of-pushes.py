@@ -8,6 +8,5 @@ for i in range(lenA):
     cnt += 1
     if  A == B:
         break
-if  cnt == lenA:
-    print(-1)
-print(cnt)
+    if  cnt == lenA:
+        print(-1)
