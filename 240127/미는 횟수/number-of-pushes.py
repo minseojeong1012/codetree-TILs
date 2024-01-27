@@ -8,5 +8,7 @@ for i in range(lenA):
     cnt += 1
     if  A == B:
         break
-    if  cnt == lenA:
-        print(-1)
+if  cnt == lenA:
+    print(-1)
+else:
+    print(cnt)
