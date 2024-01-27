@@ -10,3 +10,4 @@ for i in range(lenA):
         break
 if  cnt == lenA:
     print(-1)
+print(cnt)
