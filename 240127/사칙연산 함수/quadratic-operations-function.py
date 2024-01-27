@@ -20,7 +20,7 @@ if o == "+":
 elif o == "-":
     print(a, "-", c, "=", minus(a, c))
 elif o == "/":
-    print(a, "/", c, "=", divide(a, c))
+    print(a, "/", c, "=", divv(a, c))
 elif o == "*":
     print(a, "*", c, "=", multiple(a, c))
 else:
