@@ -1,10 +1,15 @@
-import sys
+def f(a):
+    for i in range(1, len(a)):
+        if a[i] != a[0]:
+            for i in range(len(a)):
+                for j in range(i + 1, len(a)):
+                    if a[i] == a[j]:
+                        return True
+    return False
 
-string = input()
-cnt_arr = [0] * 26 # lower alpha
-for char in string:
-    cnt_arr[ord(char) - 97] += 1
-    if cnt_arr[ord(char) - 97] == 2:
-        print("Yes")
-        sys.exit(0)
-print("No")
+
+a = input()
+if f(a):
+    print('Yes')
+else:
+    print('No')
