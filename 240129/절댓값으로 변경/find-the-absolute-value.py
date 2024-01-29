@@ -6,6 +6,6 @@ def modify(arr):
         if arr[i] < 0:
             arr[i] = -arr[i]
 
-arr = modify(arr)
+modify(arr)
 for elem in arr:
     print(elem, end=" ")
