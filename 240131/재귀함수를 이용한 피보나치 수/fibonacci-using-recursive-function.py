@@ -1,6 +1,8 @@
 n = int(input())
 
 def recur(n):
+    if n== 0:
+        return 1
     if n==1:
         return 1
     if n==2:
@@ -8,4 +10,4 @@ def recur(n):
 
     return recur(n-1)+recur(n-2)
 
-print(recur(n))
+print(recur(n-1))
