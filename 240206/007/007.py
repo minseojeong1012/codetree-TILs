@@ -6,6 +6,6 @@ class Place:
 
 place1 = Place('codetree','L',13)
 
-print("secret code : ",place1.secret_code)
-print("meeting point : ",place1.meeting_point)
-print("time : ",place1.time)
+print("secret code :",place1.secret_code)
+print("meeting point :",place1.meeting_point)
+print("time :",place1.time)
