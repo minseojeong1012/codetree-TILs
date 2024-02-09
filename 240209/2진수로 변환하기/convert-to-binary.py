@@ -1,14 +1,12 @@
-n = 29
-digits = []
+import sys
 
-while True:
-    if n < 2:
-        digits.append(n)
-        break
+def get_binary(N):
+    if N <= 1:
+        return N
+    return get_binary(N//2) * 10 + (N%2)
 
-    digits.append(n % 2)
-    n //= 2
+si = sys.stdin.readline
 
-# print binary number
-for digit in digits[::-1]:
-    print(digit, end="")
+n = int(si())
+
+print(get_binary(n))
