@@ -44,12 +44,12 @@ def isExist(Y, M, D):
 
     leap_state = isLeap(Y)
 
-    if leap_state:  # 윤년
-        if D > twenty_nine[0] and M == 2:
+    if leap_state and M ==2:  # 윤년
+        if D > twenty_nine[0]:
             return False
         return True
-    elif leap_state == False:   # 윤년 x
-        if D > twenty_eight[0] and M==2:
+    elif leap_state == False and M ==2:   # 윤년 x
+        if D > twenty_eight[0]:
             return False
         return True
     if M in thirty:
