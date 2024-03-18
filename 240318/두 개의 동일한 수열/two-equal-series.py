@@ -4,10 +4,14 @@ arr2 = list(map(int,input().split()))
 
 arr.sort()
 arr2.sort()
-
+sum = 0
 for i in range(n):
     if arr[i] == arr2[i]:
-        print("Yes")
-        break
+        sum +=1
     else:
-        print("No")
+        continue
+
+if sum == n:
+    print("Yes")
+else:
+    print("No")
