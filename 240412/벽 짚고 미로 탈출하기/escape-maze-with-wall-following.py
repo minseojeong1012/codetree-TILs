@@ -1,110 +1,71 @@
 n = int(input())
-x, y = map(int, input().split())
+x,y = map(int,input().split())
+maps = [ list(input()) for _ in range(n)]
+
+dxs=[0,1,0,-1]
+dys=[1,0,-1,0]
+
+#아래일때 체크해서 있으면 오른족 방향으로 진행
+# 왼쪽일때 벽있으면 아래로 진행 벽없으면 방향 전환, 
+# 위일때 벽있으면 왼쪽으로 진행 벽없으면 방향 전환
+# 방향 바꾸는것과 탐색하는게 다르게 가야한다. 
+
+# 인덱스 보정
 x -= 1
-y -= 1
-miro = [list(str(input())) for _ in range(n)]
+y -= 1 
 
-dx = [0, 1, 0, -1]
-dy = [1, 0, -1, 0]
-dirt = 0
+def in_range(x,y) : 
+    return 0<= x < n and 0<= y < n 
 
-# 현재 위치
-cur_point = miro[x][y]
+def simulation() :
+    global x,y
+    global count
+    pos = 0 # 초기는 오른쪽 
+    wall = 1
+    # while문 판단자 
+    possible = True 
+    # 이동카운트
+    count = 0  
+    # 방향바꿈 카운트
+    pos_check = 0
+    while possible : 
+        # 벽짚기 
+        if not in_range(x,y): # 반시계 방향 나온거 체크 
+            #count += 1 
+            return
 
-def is_in_range(right_x, right_y) :
-    return 0 <= right_x < n and 0 <= right_y < n
+        if count >= 10000 or pos_check >= 10000:
+            count = -1
+            break
+        nx ,ny = x+dxs[wall], y + dys[wall] 
 
-# 같은 곳을 반복하는지 체크하는 함수
-def repeat_check(go_x, go_y, dirt) :
-    global visited
+        checked = False
+        # 오른짚기 벽체크
+        if in_range(nx,ny):
+            if maps[nx][ny] == '#' : # 벽이라면, 
+                #바라보는 방향 벽체크 
+                tx,ty = x+dxs[pos], y  + dys[pos] # 반시계 방향 체크를위해 
+                if in_range(tx,ty) : 
+                    if maps[tx][ty] == '#':#반시계방향회전 
+                        pos = (pos+3) % 4 
+                        wall = (wall +3) % 4
+                        pos_check += 1 
+                        checked = True
 
-    if visited[go_x][go_y][dirt] == True: # 이미 방문한 경우
-        return True
-
-    visited[go_x][go_y][dirt] = True
-
-# 회전을 여러 번 할 경우 - 위치 체크 함수
-def same_diff_dirt_check(x, go_x, y, go_y, dirt) :
-    while True :
-        if x == go_x and y == go_y : 
-            dirt, go_x, go_y = move_and_block_check(x, y, dirt)
-            
-        if x != go_x or y != go_y : 
-            return dirt, go_x, go_y
+                if checked != True:
+                    x,y = x + dxs[pos] , y + dys[pos] # 그냥 진행방향으로 가기. 
+                    count += 1 
+                else : 
+                    pass
+            elif maps[nx][ny] == '.' : # 길이라면 
+                x,y = nx,ny #그쪽으로 진행 
+                count +=1
+                pos = (pos +1)%4
+                wall =(wall+1)%4
+                pos_check += 1 
+        else : #바깥이다. 
+            count += 1 # 밖으로 이동하며 끝 
+            return
         
-        if repeat_check(go_x, go_y, dirt) :
-            return dirt, go_x, go_y
-
-# 이동할 위치에 따라 방향 설정 & 이동
-def move_and_block_check(x, y, dirt) :
-    # 전진할 좌표 설정
-    go_x = x + dx[dirt]
-    go_y = y + dy[dirt]
-    if is_in_range(go_x, go_y) and miro[go_x][go_y] == '#' :
-        #print('전진할 곳에 벽 있음')
-
-        # 반시계 방향 설정
-        dirt = (dirt + 3) % 4
-        #print('반시계 방향 설정 : ', dirt)
-
-        # 이동을 하지 않기 때문에 원래 위치 리턴, 바뀐 방향 리턴
-        return dirt, x, y
-            
-    elif is_in_range(go_x, go_y) and miro[go_x][go_y] == '.' :
-        #print('전진할 곳에 벽 없음')
-        cur_point = miro[go_x][go_y]
-        #print('전진할 곳으로 전진함 : ', go_x, go_y)
-
-        # 이동하기 때문에 이동할 위치 리턴, 원래 방향 리턴
-        return dirt, go_x, go_y
-    elif not is_in_range(go_x, go_y) : # 격자에서 벗어나는 경우
-        return dirt, go_x, go_y # 벗어난 위치를 리턴
-
-# 오른쪽에 벽이 있는지 없는지 체크
-def right_wall_check(x, y, dirt) :
-    
-    global go_x, go_y 
-
-    # 오른쪽 방향 설정
-    right_dirt = (dirt + 1) % 4
-
-    right_x = x + dx[right_dirt] 
-    right_y = y + dy[right_dirt] 
-
-    if is_in_range(right_x, right_y) and miro[right_x][right_y] == '#' :
-        #print('오른쪽에 벽 있음')
-        #print('move_and_block_check 실행')
-        dirt, go_x, go_y = move_and_block_check(x, y, dirt)
-        dirt, go_x, go_y = same_diff_dirt_check(x, go_x, y, go_y, dirt)
-
-    elif is_in_range(right_x, right_y) and miro[right_x][right_y] == '.' :
-        #print('오른쪽에 벽 없음')
-
-        # 시계방향으로 90도 회전함
-        dirt = (dirt + 1) % 4
-
-        #print('move_and_block_check 실행')
-        dirt, go_x, go_y = move_and_block_check(x, y, dirt)
-        dirt, go_x, go_y = same_diff_dirt_check(x, go_x, y, go_y, dirt)
-
-    else : # 격자를 벗어나는 경우
-        return dirt, go_x, go_y 
-    
-    return dirt, go_x, go_y 
-
-cnt = 0
-
-# 방문한 곳 저장 
-visited = []
-while True :
-    dirt, x, y = right_wall_check(x, y, dirt)
-    cnt += 1
-
-    if not is_in_range(x, y) :
-        break
-
-    if repeat_check(go_x, go_y, dirt) :
-        cnt = -1
-        break
-
-print(cnt)
+simulation()
+print(count)
