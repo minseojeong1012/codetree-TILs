@@ -26,7 +26,7 @@ public class Main {
 
         boolean subSequene = false;
 
-        for (int i = 0; i < n1-n2; i++) {
+        for (int i = 0; i <= n1-n2; i++) {
 
             boolean isMatch = true;
             
