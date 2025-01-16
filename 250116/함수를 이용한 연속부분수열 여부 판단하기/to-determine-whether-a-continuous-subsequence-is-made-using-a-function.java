@@ -30,7 +30,7 @@ public class Main {
 
             boolean isMatch = true;
             
-            for (int j = 0; j < n1-n2; j++) {
+            for (int j = 0; j <= n1-n2; j++) {
                 if (a[i+j] != b[j]) {
                     isMatch = false;
                     break;
