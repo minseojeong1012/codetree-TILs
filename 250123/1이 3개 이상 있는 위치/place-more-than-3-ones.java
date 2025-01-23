@@ -15,7 +15,7 @@ public class Main {
 	
 	
 	public static boolean isRange(int x, int y) {
-		return (0 <= x && x < 5 && y >= 0 && y < 5);
+		return (0 <= x && x < n && y >= 0 && y < n);
 	}
 
 	public static void main(String[] args) {
