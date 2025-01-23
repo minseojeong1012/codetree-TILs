@@ -1,3 +1,5 @@
+package algo;
+
 import java.util.*;
 
 public class Main {
@@ -16,6 +18,18 @@ public class Main {
 	
 	public static boolean isRange(int x, int y) {
 		return (0 <= x && x < n && y >= 0 && y < n);
+	}
+	
+	public static int check(int i, int j ) {
+		int number = 0;
+		for (int a = 0; a < dir; a++) {
+			int nx = i + dx[a];
+			int ny = j + dy[a];
+			if( isRange(nx, ny) && arr[nx][ny] == 1) {
+				number++;
+			}
+		}
+		return number;
 	}
 
 	public static void main(String[] args) {
@@ -41,19 +55,6 @@ public class Main {
 		System.out.println(cnt);
 		
 		
-	}
-	
-	
-	public static int check(int i, int j ) {
-		int number = 0;
-		for (int a = 0; a < dir; a++) {
-			int nx = i + dx[i];
-			int ny = j + dy[i];
-			if( isRange(nx, ny) && arr[nx][ny] == 1) {
-				number++;
-			}
-		}
-		return number;
 	}
 
 }
